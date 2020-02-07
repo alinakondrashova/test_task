@@ -3,9 +3,6 @@
 namespace app\controllers;
 
 use Yii;
-use  yii\helpers\ArrayHelper;
-use app\models\Task;
-use app\models\TaskSearch;
 use app\models\Category;
 use app\models\CategorySearch;
 use yii\web\Controller;
@@ -13,9 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TaskController implements the CRUD actions for Task model.
+ * CategoryController implements the CRUD actions for Category model.
  */
-class TaskController extends Controller
+class CategoryController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -33,12 +30,12 @@ class TaskController extends Controller
     }
 
     /**
-     * Lists all Task models.
+     * Lists all Category models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TaskSearch();
+        $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +45,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Displays a single Task model.
+     * Displays a single Category model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,13 +58,13 @@ class TaskController extends Controller
     }
 
     /**
-     * Creates a new Task model.
+     * Creates a new Category model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Task();
+        $model = new Category();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -79,7 +76,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Updates an existing Task model.
+     * Updates an existing Category model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -99,7 +96,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Deletes an existing Task model.
+     * Deletes an existing Category model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -113,43 +110,18 @@ class TaskController extends Controller
     }
 
     /**
-     * Finds the Task model based on its primary key value.
+     * Finds the Category model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Task the loaded model
+     * @return Category the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Task::findOne($id)) !== null) {
+        if (($model = Category::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    public function actionSetCategory($id)
-    {
-        $task = $this->findModel($id);
-        $selectedCategory = $task->category->id;
-        //$result = ArrayHelper::map(Category::find()->all(), 'id', 'name');
-        $categories = ArrayHelper::map(Category::find()->all(), 'id', 'title');;
-
-        if (true) {
-
-            $category = Yii::$app->request->post('category');
-            if ($task->saveCategory($category)) {
-                return $this->redirect(['view', 'id' => $task->id]);
-            }
-            //  $task->saveCategory($category);
-        }
-
-
-
-        return $this->render('category', [
-            'task' => $task,
-            'selectedCateory' => $selectedCategory,
-            'categories' => $categories
-        ]);
     }
 }

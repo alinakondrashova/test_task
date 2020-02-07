@@ -29,11 +29,23 @@ class Task extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+
+
         return [
+            [['title'], 'required'],
+            [['title'], 'string', 'max' => 255],
+            [['date'], 'date', 'format' => 'php:Y-m-d'],
+            [['date'], 'default', 'value' => date('Y-m-d')],
+            [['category_id'], 'default', 'value' => 1],
+            [['comments_count'], 'default', 'value' => 0],
+
             [['user_id', 'category_id', 'comments_count'], 'integer'],
+
+        ];
+        /*   [['user_id', 'category_id', 'comments_count'], 'integer'],
             [['date'], 'safe'],
             [['title'], 'string', 'max' => 255],
-        ];
+        ];*/
     }
 
     /**
@@ -49,5 +61,21 @@ class Task extends \yii\db\ActiveRecord
             'date' => 'Date',
             'comments_count' => 'Comments Count',
         ];
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+
+    public function saveCategory($category_id)
+    {
+      $category =Category::findOne(($category_id));
+     if($category!=null){
+        $this->link('category', $category );
+        return true;
+     }
+     
+
     }
 }
