@@ -12,8 +12,10 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="task-view">
+<h4 ><?=$task->category->title?> </h4>
+<h4 >Created on <?= Yii::$app->formatter->asDate($task->date, 'long')?> </h4>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -26,17 +28,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'user_id',
-            'title',
-            'category_id',
-            'date',
-            'comments_count',
-        ],
-    ]) ?>
-
 </div>

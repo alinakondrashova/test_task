@@ -70,12 +70,23 @@ class Task extends \yii\db\ActiveRecord
 
     public function saveCategory($category_id)
     {
-      $category =Category::findOne(($category_id));
-     if($category!=null){
-        $this->link('category', $category );
-        return true;
-     }
-     
+        $category = Category::findOne(($category_id));
+        if ($category != null) {
+            $this->link('category', $category);
+            return true;
+        }
+    }
 
+    public function getDate()
+    {
+        return Yii::$app->formatter->asDate($this->date, 'long');
+    }
+    
+    public static function getAll()
+    {
+        $query = Task::find();
+
+        $tasks = $query->all();
+        $data['tasks']=$tasks;
     }
 }

@@ -38,12 +38,18 @@ class TaskController extends Controller
      */
     public function actionIndex()
     {
+
+
+
+
         $searchModel = new TaskSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $categories = Category::find()->all();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'categories' => $categories,
         ]);
     }
 
@@ -55,8 +61,17 @@ class TaskController extends Controller
      */
     public function actionView($id)
     {
+        $task=Task::findOne($id);
+
+     /*   return $this->render('single',
+      [ 
+          'task'=>$task,
+      ]  
+    );*/
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+           'model' => $this->findModel($id),
+           'task'=>$task,
         ]);
     }
 
@@ -143,8 +158,6 @@ class TaskController extends Controller
             }
             //  $task->saveCategory($category);
         }
-
-
 
         return $this->render('category', [
             'task' => $task,
