@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <br>
 <?php 
 $form=\yii\widgets\ActiveForm::begin([
      'action'=>['task/comment',
