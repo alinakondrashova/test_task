@@ -41,7 +41,7 @@ AppAsset::register($this);
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Tasks', 'url' => ['/task/index']],
 
-            Yii::$app->user->isGuest ? (
+     /*     Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
@@ -54,7 +54,8 @@ AppAsset::register($this);
                 . '</li>'
             )
         ],
-    ]);
+  */
+    ]]);
     NavBar::end();
     ?>
 
@@ -69,7 +70,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Test task "Todo list" <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>

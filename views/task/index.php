@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 use yii\db\Query;
 use app\models\Category;
+use app\models\Comment;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\TaskSearch */
@@ -34,18 +35,18 @@ $this->params['breadcrumbs'][] = $this->title;
     </ul>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-      //  'filterModel' => $searchModel,
+        //  'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-             'title',
+            'title',
             [
                 'attribute' => 'category',
-                'value' => function($task){
-                    $category_id=$task->category_id;
-                    $query=Category::find()
+                'value' => function ($task) {
+                    $category_id = $task->category_id;
+                    $query = Category::find()
                         ->select('title')
-                        ->from('category') 
-                        ->where(['id'=>$category_id])
+                        ->from('category')
+                        ->where(['id' => $category_id])
                         ->one();
                     return $query->title;
                 }
@@ -54,7 +55,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'date',
                 'format' => ['date', 'dd/MM/yyyy']
             ],
-            'comments_count',
+            [
+                'attribute' => 'comments_count',
+                'value' => function ($task) {
+                    $count_id = $task->id;
+                    $query = Comment::find()
+                        ->where(['task_id' => $count_id])
+                        ->count();;
+                    return $query;
+                }
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
 

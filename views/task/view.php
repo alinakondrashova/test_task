@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Task */
@@ -28,4 +29,37 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+<?php 
+$form=\yii\widgets\ActiveForm::begin([
+     'action'=>['task/comment',
+      'id'=>$task->id],
+      'options'=> ['role'=>'form']] )?>
+<div class="form-group">
+<?=  $form->field($commentForm, 'comment')->textarea(['class'=>'form-control', 'placeholder'=>'Write your comment'])->label(false); ?>
+</div>
+
+<button type="submit">Post comment</button>
+
+<?php 
+$form=\yii\widgets\ActiveForm::end(); ?>
+
+
+
+    <?php if(!empty($comments)):?>
+    
+    <?php foreach($comments as $comment):?>
+<div class="container bg-info">
+<p>Comment 
+<div class="bg-primary">
+
+<h4><?=$comment->text;?></h4>
+</div>
+
+</div>
+<hr>
+
+    <?php endforeach;?>
+
+    
+    <?php endif;?>
 </div>

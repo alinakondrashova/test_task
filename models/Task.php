@@ -89,4 +89,9 @@ class Task extends \yii\db\ActiveRecord
         $tasks = $query->all();
         $data['tasks']=$tasks;
     }
+
+    public function getComments(){
+        return $this->hasMany(Comment::className(),['task_id'=>'id']);
+        
+    }
 }

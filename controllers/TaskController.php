@@ -8,6 +8,7 @@ use app\models\Task;
 use app\models\TaskSearch;
 use app\models\Category;
 use app\models\CategorySearch;
+use app\models\CommentForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,10 +39,6 @@ class TaskController extends Controller
      */
     public function actionIndex()
     {
-
-
-
-
         $searchModel = new TaskSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $categories = Category::find()->all();
@@ -62,7 +59,8 @@ class TaskController extends Controller
     public function actionView($id)
     {
         $task=Task::findOne($id);
-
+        $comments = $task->comments;
+        $commentForm = new CommentForm();
      /*   return $this->render('single',
       [ 
           'task'=>$task,
@@ -72,6 +70,8 @@ class TaskController extends Controller
         return $this->render('view', [
            'model' => $this->findModel($id),
            'task'=>$task,
+           'comments'=>$comments,
+           'commentForm'=>$commentForm,
         ]);
     }
 
@@ -113,13 +113,7 @@ class TaskController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing Task model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+    
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -127,13 +121,6 @@ class TaskController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Task model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Task the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Task::findOne($id)) !== null) {
@@ -164,5 +151,23 @@ class TaskController extends Controller
             'selectedCateory' => $selectedCategory,
             'categories' => $categories
         ]);
+    
+
     }
+
+    public function actionComment($id){
+        $model = new CommentForm();
+        
+        if(Yii::$app->request->isPost)
+        {
+            $model->load(Yii::$app->request->post());
+            if($model->saveComment($id))
+            {
+                Yii::$app->getSession()->setFlash('comment', 'Your comment will be added soon!');
+                return $this->redirect(['task/view','id'=>$id]);
+            }
+        }
+    }
+
+
 }
