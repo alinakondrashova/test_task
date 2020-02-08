@@ -13,8 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="task-view">
-<h4 ><?=$task->category->title?> </h4>
-<h4 >Created on <?= Yii::$app->formatter->asDate($task->date, 'long')?> </h4>
+    <h4>Category: <?= $task->category->title ?> </h4>
+    <h4>Created on <?= Yii::$app->formatter->asDate($task->date, 'long') ?> </h4>
 
     <h2><?= Html::encode($this->title) ?></h2>
 
@@ -30,37 +30,38 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
     <br>
-<?php 
-$form=\yii\widgets\ActiveForm::begin([
-     'action'=>['task/comment',
-      'id'=>$task->id],
-      'options'=> ['role'=>'form']] )?>
-<div class="form-group">
-<?=  $form->field($commentForm, 'comment')->textarea(['class'=>'form-control', 'placeholder'=>'Write your comment'])->label(false); ?>
-</div>
-
-<button type="submit">Post comment</button>
-
-<?php 
-$form=\yii\widgets\ActiveForm::end(); ?>
-
-
-
-    <?php if(!empty($comments)):?>
-    
-    <?php foreach($comments as $comment):?>
-<div class="container bg-info">
-<p>Comment 
-<div class="bg-primary">
-
-<h4><?=$comment->text;?></h4>
-</div>
-
-</div>
-<hr>
-
-    <?php endforeach;?>
+    <?php
+    $form = \yii\widgets\ActiveForm::begin([
+        'action' => [
+            'task/comment',
+            'id' => $task->id
+        ],
+        'options' => ['role' => 'form']
+    ]) ?>
+    <div class="form-group">
+        <?= $form->field($commentForm, 'comment')->textarea(['class' => 'form-control', 'placeholder' => 'Write your comment'])->label(false); ?>
+    </div>
 
     
-    <?php endif;?>
+    <button type="submit" class="btn btn-outline-primary">Post comment</button>
+    <?php
+    $form = \yii\widgets\ActiveForm::end(); ?>
+    <?php if (!empty($comments)) : ?>
+
+        <?php foreach ($comments as $comment) : ?>
+            <br>
+
+            <div class="container bg-info">
+                <p>Comment
+                    <div class="bg-primary">
+                        <h4><?= $comment->text; ?></h4>
+                    </div>
+
+            </div>
+            <hr>
+
+        <?php endforeach; ?>
+
+
+    <?php endif; ?>
 </div>

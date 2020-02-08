@@ -21,23 +21,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Task', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    ?>
-    <ul>
-        <?php
-        foreach ($categories as $category) : ?>
-            <li>
-                <a href="#"><?= $category->title ?></a>
-                <span> <?= $category->getTasks()->count(); ?> </span>
-            </li>
-        <?php endforeach; ?>
-
-    </ul>
+   
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         //  'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+         //   ['class' => 'yii\grid\SerialColumn'],
             'title',
             [
                 'attribute' => 'category',
@@ -53,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'date',
-                'format' => ['date', 'dd/MM/yyyy']
+                'format' => ['date', 'dd/MM/yyyy'],
             ],
             [
                 'attribute' => 'comments_count',
@@ -67,11 +56,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
-
     ]); ?>
     
 
 </div>
-<button onclick="convertToJSON()">Convert</button>
 <button onclick="saveToFile()">Save</button>
 <textarea id="output" style="visibility:hidden;"></textarea>

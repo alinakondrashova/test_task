@@ -38,7 +38,6 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Tasks', 'url' => ['/task/index']],
 
      /*     Yii::$app->user->isGuest ? (
@@ -72,7 +71,6 @@ AppAsset::register($this);
     <div class="container">
         <p class="pull-left">&copy; Test task "Todo list" <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
 
