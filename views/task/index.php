@@ -72,3 +72,6 @@ $this->params['breadcrumbs'][] = $this->title;
     
 
 </div>
+<button onclick="convertToJSON()">Convert</button>
+<button onclick="saveToFile()">Save</button>
+<textarea id="output" style="visibility:hidden;"></textarea>
