@@ -56,8 +56,8 @@ class Task extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'title' => 'Title',
-            'category_id' => 'Category ID',
+            'title' => 'Task',
+            'category_id' => 'Category',
             'date' => 'Date',
             'comments_count' => 'Comments Count',
         ];

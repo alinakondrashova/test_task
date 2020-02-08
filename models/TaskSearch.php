@@ -13,7 +13,9 @@ class TaskSearch extends Task
 {
     /**
      * {@inheritdoc}
+    
      */
+
     public function rules()
     {
         return [
